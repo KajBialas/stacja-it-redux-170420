@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
 import { incrementCounter, decrementCounter, resetCounter, changeCounter} from '../modules/counter/counter.actions';
+import { selectActiveTodos } from '../modules/todos/todos.selector';
 
 function Home({ counter, increment, decrement, reset, change, todosActive}) {
   const renderTodos = () => todosActive.map(todo => <div id={todo.id}>{todo.title}</div>);
@@ -29,7 +30,7 @@ function Home({ counter, increment, decrement, reset, change, todosActive}) {
 const mapStateToProps = state => {
   return ({
     counter: state.counter.value,
-    todosActive: state.todos.list.filter(item => !item.completed),
+    todosActive: selectActiveTodos(state.todos.list),
   })
 };
 
