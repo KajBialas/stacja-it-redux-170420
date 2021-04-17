@@ -8,14 +8,19 @@ const todosReducer = (state = todosInitialState, action) => {
   switch (action.type) {
     case TODOS_ACTION_TYPES.ADD_TODO:
       const newTodoElementId = state.list.length ? state.list.length : 0;
+
+      const newTodoState = action.collection ? action.payload : [...state.list, {
+        id: newTodoElementId,
+        title: action.payload,
+        completed: false,
+      }];
+
+
       return {
         ...state,
-        list: [...state.list, {
-          id: newTodoElementId,
-          title: action.payload,
-          completed: false,
-        }]
+        list: newTodoState,
       };
+
     case TODOS_ACTION_TYPES.MARK_TODO_COMPLETE:
       const newTodosArray = [...state.list];
       newTodosArray[action.payload].completed = !newTodosArray[action.payload].completed;
