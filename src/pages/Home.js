@@ -30,7 +30,7 @@ function Home({ counter, increment, decrement, reset, change, todosActive}) {
 const mapStateToProps = state => {
   return ({
     counter: state.counter.value,
-    todosActive: selectActiveTodos(state.todos.list),
+    todosActive: selectActiveTodos(state),
   })
 };
 

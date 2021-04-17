@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { markTodoComplete } from '../modules/todos/todos.actions';
+import { selectTodos } from '../modules/todos/todos.selector';
 
 function TodosList({ todos, markTodo }) {
 
@@ -21,7 +22,7 @@ function TodosList({ todos, markTodo }) {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos.list
+    todos: selectTodos(state),
   }
 };
 
