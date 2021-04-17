@@ -1,12 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { markTodoComplete } from '../modules/todos/todos.actions';
 import { selectTodos } from '../modules/todos/todos.selector';
+import { useSelector, useDispatch } from 'react-redux';
 
-function TodosList({ todos, markTodo }) {
+function TodosList() {
+  const todos = useSelector(state => selectTodos(state));
+  const dispatch = useDispatch();
+
+  const handleMarkTodo = (value) => dispatch(markTodoComplete(value));
 
   const renderTodos = () => todos.map(todo =>
-    <div key={todo.id} onClick={() => markTodo(todo.id)}>
+    <div key={todo.id} onClick={() => handleMarkTodo(todo.id)}>
       {todo.title}
       {todo.completed ? ' - zadanie wykonane' : ' - zadanie niewykonane'}
     </div>
@@ -20,16 +24,5 @@ function TodosList({ todos, markTodo }) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    todos: selectTodos(state),
-  }
-};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    markTodo: (value) => dispatch(markTodoComplete(value)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodosList);
+export default TodosList;
