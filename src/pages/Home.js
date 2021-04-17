@@ -2,17 +2,17 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
-import { ACTION_TYPES } from '../index';
+import { incrementCounter, decrementCounter, resetCounter, changeCounter} from '../modules/counter/counter.actions';
 
 function Home({ counter, increment, decrement, reset, change, todos}) {
-  const renderTodos = () => todos.map(todo => !todo.completed ? <div id={todo.id}>{todo.title}</div> : null);
+  // const renderTodos = () => todos.map(todo => !todo.completed ? <div id={todo.id}>{todo.title}</div> : null);
   return (
     <div>
       <Header />
-      <div>
-        <h2>Lista aktywnych elementów</h2>
-        {renderTodos()}
-      </div>
+      {/*<div>*/}
+      {/*  <h2>Lista aktywnych elementów</h2>*/}
+      {/*  {renderTodos()}*/}
+      {/*</div>*/}
       <div>
         Counter: {counter}
         <button onClick={increment}>+</button>
@@ -27,20 +27,17 @@ function Home({ counter, increment, decrement, reset, change, todos}) {
 
 const mapStateToProps = state => {
   return ({
-    counter: state.counter,
-    todos: state.todos,
+    counter: state.counter.value,
+    // todos: state.todos,
   })
 };
 
 const mamDispatchToProps = dispatch => {
   return ({
-    increment: () => dispatch({type: ACTION_TYPES.INCREMENT}),
-    decrement: () => dispatch({type: ACTION_TYPES.DECREMENT}),
-    reset: () => dispatch({type: ACTION_TYPES.RESET}),
-    change: (value) => dispatch({
-      type: ACTION_TYPES.CHANGE,
-      payload: value,
-    })
+    increment: () => dispatch(incrementCounter),
+    decrement: () => dispatch(decrementCounter),
+    reset: () => dispatch(resetCounter),
+    change: (value) => dispatch(changeCounter(value))
   });
 };
 

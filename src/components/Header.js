@@ -11,7 +11,7 @@ function Header({counter}) {
 
 const mapStateToProps = state => {
   return ({
-    counter: state.counter,
+    counter: state.counter.value,
   })
 };
 
