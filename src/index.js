@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Home from './pages/Home';
 import About from './pages/About';
+import Todos from './pages/Todos';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -11,6 +12,7 @@ import Menu from './components/Menu';
 
 const INITIAL_STATE = {
   counter: 0,
+  todos: [],
 };
 
 export const ACTION_TYPES = {
@@ -18,6 +20,7 @@ export const ACTION_TYPES = {
   DECREMENT: 'DECREMENT',
   RESET: 'RESET',
   CHANGE: 'CHANGE',
+  ADD_TODO: 'ADD_TODO',
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -42,13 +45,18 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         counter: action.payload,
       }
+    case ACTION_TYPES.ADD_TODO:
+      return {
+        ...state,
+        todos: [...state.todos, action.payload]
+      }
 
     default:
       return state;
   }
 };
 
-const store = createStore(reducer);
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 
 ReactDOM.render(
@@ -58,6 +66,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
+        <Route exact path="/todos" component={Todos} />
       </Switch>
     </BrowserRouter>
   </Provider>,

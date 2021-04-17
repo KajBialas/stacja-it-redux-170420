@@ -3,11 +3,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
 import { ACTION_TYPES } from '../index';
+import TodoList from '../components/TodoList';
 
 function Home({ counter, increment, decrement, reset, change}) {
   return (
     <div>
       <Header />
+      <TodoList />
       <div>
         Counter: {counter}
         <button onClick={increment}>+</button>
