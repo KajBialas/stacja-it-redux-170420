@@ -4,15 +4,16 @@ import Footer from '../components/Footer';
 import { connect } from 'react-redux';
 import { incrementCounter, decrementCounter, resetCounter, changeCounter} from '../modules/counter/counter.actions';
 
-function Home({ counter, increment, decrement, reset, change, todos}) {
-  // const renderTodos = () => todos.map(todo => !todo.completed ? <div id={todo.id}>{todo.title}</div> : null);
+function Home({ counter, increment, decrement, reset, change, todosActive}) {
+  const renderTodos = () => todosActive.map(todo => <div id={todo.id}>{todo.title}</div>);
+
   return (
     <div>
       <Header />
-      {/*<div>*/}
-      {/*  <h2>Lista aktywnych elementów</h2>*/}
-      {/*  {renderTodos()}*/}
-      {/*</div>*/}
+      <div>
+        <h2>Lista aktywnych elementów</h2>
+        {renderTodos()}
+      </div>
       <div>
         Counter: {counter}
         <button onClick={increment}>+</button>
@@ -28,7 +29,7 @@ function Home({ counter, increment, decrement, reset, change, todos}) {
 const mapStateToProps = state => {
   return ({
     counter: state.counter.value,
-    // todos: state.todos,
+    todosActive: state.todos.list.filter(item => !item.completed),
   })
 };
 

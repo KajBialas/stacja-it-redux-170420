@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ACTION_TYPES } from '../index';
+import { markTodoComplete } from '../modules/todos/todos.actions';
 
 function TodosList({ todos, markTodo }) {
 
@@ -21,16 +21,13 @@ function TodosList({ todos, markTodo }) {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    todos: state.todos.list
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    markTodo: (value) => dispatch({
-      type: ACTION_TYPES.MARK_TODO_COMPLETE,
-      payload: value,
-    })
+    markTodo: (value) => dispatch(markTodoComplete(value)),
   }
 }
 

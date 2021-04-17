@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { ACTION_TYPES } from '../index';
+import { addTodo } from '../modules/todos/todos.actions';
 
 function TodoForm({addTodo}) {
   const [inputValue, setInputValue] = useState('');
@@ -27,10 +27,7 @@ function TodoForm({addTodo}) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTodo: (value) => dispatch({
-      type: ACTION_TYPES.ADD_TODO,
-      payload: value,
-    })
+    addTodo: (value) => dispatch(addTodo(value)),
   }
 }
 
