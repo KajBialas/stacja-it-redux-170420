@@ -21,6 +21,7 @@ export const ACTION_TYPES = {
   RESET: 'RESET',
   CHANGE: 'CHANGE',
   ADD_TODO: 'ADD_TODO',
+  MARK_TODO_COMPLETE: 'MARK_TODO_COMPLETE',
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -46,9 +47,22 @@ const reducer = (state = INITIAL_STATE, action) => {
         counter: action.payload,
       }
     case ACTION_TYPES.ADD_TODO:
+      const newTodoElementId = state.todos.length ? state.todos.length : 0;
       return {
         ...state,
-        todos: [...state.todos, action.payload]
+        todos: [...state.todos, {
+          id: newTodoElementId,
+          title: action.payload,
+          completed: false,
+        }]
+      };
+    case ACTION_TYPES.MARK_TODO_COMPLETE:
+      const newTodosArray = [...state.todos];
+      newTodosArray[action.payload].completed = !newTodosArray[action.payload].completed;
+
+      return state = {
+        ...state,
+        todos: newTodosArray,
       }
 
     default:

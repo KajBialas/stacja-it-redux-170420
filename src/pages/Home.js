@@ -3,13 +3,16 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
 import { ACTION_TYPES } from '../index';
-import TodoList from '../components/TodoList';
 
-function Home({ counter, increment, decrement, reset, change}) {
+function Home({ counter, increment, decrement, reset, change, todos}) {
+  const renderTodos = () => todos.map(todo => !todo.completed ? <div id={todo.id}>{todo.title}</div> : null);
   return (
     <div>
       <Header />
-      <TodoList />
+      <div>
+        <h2>Lista aktywnych elementów</h2>
+        {renderTodos()}
+      </div>
       <div>
         Counter: {counter}
         <button onClick={increment}>+</button>
@@ -25,6 +28,7 @@ function Home({ counter, increment, decrement, reset, change}) {
 const mapStateToProps = state => {
   return ({
     counter: state.counter,
+    todos: state.todos,
   })
 };
 
